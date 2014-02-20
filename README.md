@@ -16,3 +16,4 @@ Newbulletin module for Ultimo MVC
 * Schedule messages in the future
 * I18n
 * Images
+* Comments
