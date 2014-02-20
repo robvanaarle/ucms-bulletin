@@ -1,0 +1,10 @@
+<?php echo $this->partial('combined/_modify.phtml', array('action' => 'update')) ?>
+
+<hr />
+
+<a name="visualiser"></a>
+<?php echo $this->partial('image/index.phtml', array('visualised_id' => $this->submit_id, 'imageControllerName' => 'submitimage')) ?>
+
+<?php if ($this->visualiser($this->imageControllerName)->config('max_images') > $this->images['image_count']): ?>
+  <?php echo $this->partial('image/_modify.phtml', array('visualised_id' => $this->submit_id, 'imageControllerName' => 'submitimage', 'action' => 'create', 'return_url' => $this->url(array(), null, false). '#visualiser'))  ?>
+<?php endif ?>

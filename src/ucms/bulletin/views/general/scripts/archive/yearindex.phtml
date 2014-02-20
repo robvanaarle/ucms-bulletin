@@ -1,0 +1,15 @@
+<a href="<?php echo $this->url(array('year' => $this->year-1))?>">&laquo; <?php echo $this->year-1?></a>
+<?php echo $this->year ?>
+<?php if ($this->year < date('Y')): ?>
+ <a href="<?php echo $this->url(array('year' => $this->year+1))?>"><?php echo $this->year+1?>&raquo;</a>
+<?php endif ?>
+<br />
+
+<?php $monthNames = $this->translate('calendar.months.wide') ?>
+<?php foreach ($this->messageCounts as $monthIndex => $messageCount): ?>
+<?php if ($messageCount > 0): ?>
+  <a href="<?php echo $this->url(array('action' => 'monthindex', 'month' => $monthIndex, 'year' => $this->year))?>"><?php echo $monthNames[$monthIndex] ?> (<?php echo $messageCount?>)</a><br />
+<?php else: ?>
+  <?php echo $monthNames[$monthIndex] ?> (<?php echo $messageCount?>)<br />
+<?php endif ?>
+<?php endforeach ?>

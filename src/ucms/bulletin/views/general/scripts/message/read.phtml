@@ -1,0 +1,28 @@
+<h4><?php echo $this->escape($this->message['title']) ?></h4>
+(<?php echo $this->locale()->getFormatter()->formatDateTime($this->message['submit']['datetime'], 'full-short') ?>)<br /><br />
+<span><?php echo $this->escape($this->message['message']) ?></span>
+
+
+<?php if ($this->localeCount > 1): ?>
+  <?php if ($this->authorizer()->isAllowed('message.update')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'update', 'submit_id' => $this->message['submit_id'], 'locale' => $this->message['locale']))?>">update message</a>
+  <?php endif ?>
+  
+  <?php if ($this->authorizer()->isAllowed('message.delete')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'delete', 'submit_id' => $this->message['submit_id'], 'locale' => $this->message['locale']))?>">delete message</a>
+  <?php endif ?>
+  
+  <?php if ($this->authorizer()->isAllowed('submit.read')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'read', 'controller' => 'submit', 'id' => $this->message['submit_id']))?>">view submit</a>
+  <?php endif ?>
+<?php else: ?>
+  <?php if ($this->authorizer()->isAllowed('combined.update')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'update', 'controller' => 'combined', 'submit_id' => $this->message['submit_id']))?>">update combined</a>
+  <?php endif ?>
+  
+  <?php if ($this->authorizer()->isAllowed('combined.delete')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'delete', 'controller' => 'combined', 'submit_id' => $this->message['submit_id']))?>">delete combined</a>
+  <?php endif ?>
+<?php endif ?>
+
+<?php echo $this->partial('comment/index.phtml', array('commentModelName' => 'messagecomment')) ?>

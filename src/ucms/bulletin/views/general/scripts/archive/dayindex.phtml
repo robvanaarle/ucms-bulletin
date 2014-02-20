@@ -1,0 +1,28 @@
+<?php
+  $prevDate = new \DateTime();
+  $prevDate->setDate($this->year, $this->month, $this->day-1);
+  $prevYear = $prevDate->format('Y');
+  $prevMonth = $prevDate->format('n');
+  $prevDay = $prevDate->format('j');
+  
+  $nextDate = new \DateTime();
+  $nextDate->setDate($this->year, $this->month, $this->day+1);
+  $nextYear = $nextDate->format('Y');
+  $nextMonth = $nextDate->format('n');
+  $nextDay = $nextDate->format('j');
+?>
+<a href="<?php echo $this->url(array('action' => 'yearindex', 'year' => $this->year))?>"><?php echo $this->year?></a> &gt;
+<a href="<?php echo $this->url(array('action' => 'monthindex', 'year' => $this->year, 'month' => $this->month))?>"><?php echo $this->locale()->getFormatter()->formatDate("{$this->year}-{$this->month}-1", 'F Y', 'Y-m-d')?></a> &gt;
+<?php echo $this->locale()->getFormatter()->formatDate("{$this->year}-{$this->month}-{$this->day}", 'medium', 'Y-m-d')?>
+<br />
+<a href="<?php echo $this->url(array('year' => $prevYear, 'month' => $prevMonth, 'day' => $prevDay))?>">&laquo; <?php echo $this->locale()->getFormatter()->formatDate("{$prevYear}-{$prevMonth}-{$prevDay}", 'medium', 'Y-m-d')?></a>
+<?php if ($this->year != date('Y') || $this->month != date('n')  || $this->day != date('j')): ?>
+ <a href="<?php echo $this->url(array('year' => $nextYear, 'month' => $nextMonth, 'day' => $nextDay))?>"><?php echo $this->locale()->getFormatter()->formatDate("{$nextYear}-{$nextMonth}-{$nextDay}", 'medium', 'Y-m-d')?> &raquo;</a>
+<?php endif ?>
+
+<br /><br />
+<?php foreach ($this->messages as $message): ?>
+  <?php echo $this->locale()->getFormatter()->formatTime($message['submit']['datetime'], 'short', 'Y-m-d H:i:s') ?>
+  <a href="<?php echo $this->url(array('controller' => 'message', 'action' => 'read', 'submit_id' => $message['submit_id'], 'locale' => $message['locale']))?>"><?php echo $this->escape($message['title']) ?></a><br />
+  <?php echo $this->escape($message['teaser']) ?><br /><br />
+<?php endforeach ?>

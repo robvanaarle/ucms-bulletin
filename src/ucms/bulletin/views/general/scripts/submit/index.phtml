@@ -1,0 +1,14 @@
+<?php foreach ($this->submits as $submit): ?>
+<?php echo $this->locale()->getFormatter()->formatDateTime($submit['datetime'], 'shortest') ?> &raquo;
+<?php if ($this->localeCount > 1): ?>
+<a href="<?php echo $this->url(array('action' => 'read', 'id' => $submit['id']))?>"><?php echo $this->escape($submit['label']) ?></a><br />
+<?php else: ?>
+<a href="<?php echo $this->url(array('action' => 'read', 'controller' => 'message', 'submit_id' => $submit['id']))?>"><?php echo $this->escape($submit['label']) ?></a><br />
+<?php endif ?>
+<?php endforeach ?>
+
+<?php if ($this->localeCount > 1 && $this->authorizer()->isAllowed('submit.create')): ?>
+<br /><a href="<?php echo $this->url(array('action' => 'create'))?>">create submit</a>
+<?php elseif ($this->localeCount <= 1 && $this->authorizer()->isAllowed('combined.create')): ?>
+<br /><a href="<?php echo $this->url(array('action' => 'create', 'controller' => 'combined'))?>">create combined</a>
+<?php endif ?>

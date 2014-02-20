@@ -1,0 +1,28 @@
+<h2><?php echo $this->escape($this->submit['label'])?></h2>
+<?php echo $this->locale()->getFormatter()->formatDateTime($this->submit['datetime'], 'shortest')?><br />
+
+<?php if ($this->authorizer()->isAllowed('submit.update')): ?>
+<br /><a href="<?php echo $this->url(array('action' => 'update', 'id' => $this->submit['id']))?>">update submit</a>
+<?php endif ?>
+
+<?php if ($this->authorizer()->isAllowed('submit.delete')): ?>
+<br /><a href="<?php echo $this->url(array('action' => 'delete', 'id' => $this->submit['id']))?>">delete submit</a>
+<?php endif ?>
+
+<br /><br />
+Messages<br />
+<table border="1">
+  <tr>
+    <td>Locale</td>
+    <td>Title</td>
+  </tr>
+	<?php foreach ($this->submit['messages'] as $message): ?>
+	 <tr>
+     <td><?php echo $message['locale']?></td>
+     <td><a href="<?php echo $this->url(array('controller' => 'message', 'action' => 'read', 'submit_id' => $message['submit_id'], 'locale' => $message['locale']))?>"><?php echo $this->escape($message['title'])?></a></td>
+   </tr>
+	<?php endforeach ?>
+</table>
+<?php if ($this->authorizer()->isAllowed('message.create')): ?>
+  <a href="<?php echo $this->url(array('controller' => 'message', 'action' => 'create', 'submit_id' => $this->submit['id']))?>">create message</a>
+<?php endif ?>

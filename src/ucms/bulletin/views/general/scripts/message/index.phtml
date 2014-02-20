@@ -1,0 +1,18 @@
+<h3>Bulletin</h3>
+<?php foreach ($this->messages as $message): ?>
+  (<?php echo $message['submit_id']?>)
+  <?php if ($this->localeCount > 1): ?>
+  <a href="<?php echo $this->url(array('action' => 'read', 'submit_id' => $message['submit_id'], 'locale' => $message['locale']))?>"><?php echo $this->escape($message['title']) ?></a><br />
+  <?php else: ?>
+  <a href="<?php echo $this->url(array('action' => 'read', 'submit_id' => $message['submit_id']))?>"><?php echo $this->escape($message['title']) ?></a><br />
+  <?php endif ?>
+  <span style="font-style: italic"><?php echo $this->escape($message['teaser']) ?></span><br /><br />
+<?php endforeach ?>
+
+<?php if ($this->authorizer()->isAllowed('submit.index')): ?>
+<br /><a href="<?php echo $this->url(array('controller' => 'submit', 'action' => 'index'))?>">view submits</a>
+<?php endif ?>
+
+<?php if ($this->authorizer()->isAllowed('archive.yearindex')): ?>
+<br /><a href="<?php echo $this->url(array('controller' => 'archive', 'action' => 'yearindex'))?>">archive</a>
+<?php endif ?>

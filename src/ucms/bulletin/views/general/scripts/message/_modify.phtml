@@ -1,0 +1,54 @@
+<?php if ($this->form === null): ?>
+There are no available locales in this subject to create a new message for.
+<?php else: ?>
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <input type="hidden" name="submit_id" value="<?php echo $this->submit_id ?>" />
+  <?php if ($this->action == 'update'): ?>
+  <input type="hidden" name="locale" value="<?php echo $this->locale ?>" />
+  <?php endif ?>
+  
+  <dl>
+    <dt><label for="locale">Locale</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'locale')?>
+      <?php echo $this->widget('Select', array(
+        'id' => 'locale',
+        'name' => 'form[locale]',
+        'value' => $this->form['locale'],
+        'values' => $this->form->getConfig('availableLocales'),
+        'texts' => $this->form->getConfig('availableLocales')
+      )) ?>
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="title">Title</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'title')?>
+      <input type="text" name="form[title]" id="title" value="<?php echo $this->escape($this->form['title'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="teaser">Teaser</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'teaser')?>
+      <textarea name="form[teaser]" id="teaser"><?php echo $this->escape($this->form['teaser'])?></textarea>
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="message">Message</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'message')?>
+      <textarea name="form[message]" id="message"><?php echo $this->escape($this->form['message'])?></textarea>
+    </dd>
+  </dl>
+  <dl>
+    <dd>
+      <input type="submit" value="<?php echo $this->action?>" />
+    </dd>
+  </dl>
+</form>
+<?php endif ?>
