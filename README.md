@@ -10,6 +10,8 @@ Newbulletin module for Ultimo MVC
 * Ultimo ACL MVC
 * Ultimo Translate MVC
 * Ultimo Validation MVC
+* UCMS Visualiser
+* UCMS Commentor
 
 ## Features
 * List, add, update and delete messages
